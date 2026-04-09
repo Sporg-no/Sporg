@@ -1,0 +1,200 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Brukere ─────────────────────────────────────────────────────────────────
+
+model Bruker {
+  id            String      @id @default(cuid())
+  epost         String      @unique
+  passordHash   String
+  navn          String
+  telefon       String?
+  rolle         String      @default("DELTAKER") // ADMIN | ORGANISATOR | DELTAKER
+  opprettetAt   DateTime    @default(now())
+  oppdatertAt   DateTime    @updatedAt
+
+  arrangementerOrganisert   Arrangement[]         @relation("OrganisatorRelasjon")
+  pameldingerSom            Pamelding[]           @relation("DeltakerRelasjon")
+  frivilligePameldingerSom  FrivilligPamelding[]  @relation("FrivilligRelasjon")
+  sendteMeldinger           Melding[]             @relation("AvsenderRelasjon")
+  mottatteMeldinger         MeldingMottaker[]     @relation("MottakerRelasjon")
+
+  @@map("brukere")
+}
+
+// ─── Arrangementer ───────────────────────────────────────────────────────────
+
+model Arrangement {
+  id                String    @id @default(cuid())
+  slug              String    @unique
+  tittel            String
+  beskrivelse       String
+  sted              String
+  adresse           String?
+  startDato         DateTime
+  sluttDato         DateTime
+  pameldingsFrist   DateTime?
+  maksAntall        Int?
+  pris              Int       @default(0)   // øre (NOK * 100)
+  status            String    @default("UTKAST") // UTKAST | PUBLISERT | AVLYST | AVSLUTTET
+  kategori          String    @default("ANNET") // LOPING | SYKLING | SVOMMING | TRIATHLON | SKIIDRETT | LAGIDRETT | KAMPSPORT | ANNET
+  organisatorId     String
+  opprettetAt       DateTime  @default(now())
+  oppdatertAt       DateTime  @updatedAt
+
+  organisator             Bruker                @relation("OrganisatorRelasjon", fields: [organisatorId], references: [id])
+  pameldingerFor          Pamelding[]           @relation("ArrangementRelasjon")
+  frivilligePameldingerFor FrivilligPamelding[] @relation("ArrangementFrivilligRelasjon")
+  sesjoner                Sesjon[]
+  resultaterFor           Resultat[]
+  meldinger               Melding[]
+
+  @@map("arrangementer")
+}
+
+// ─── Tidsplan / Sesjoner (Feature 5) ─────────────────────────────────────────
+
+model Sesjon {
+  id             String      @id @default(cuid())
+  arrangementId  String
+  tittel         String
+  beskrivelse    String?
+  startTid       DateTime
+  sluttTid       DateTime
+  sted           String?
+  type           String      @default("AKTIVITET") // AKTIVITET | SEREMONI | PAUSE | ANNET
+
+  arrangement    Arrangement @relation(fields: [arrangementId], references: [id], onDelete: Cascade)
+
+  @@map("sesjoner")
+}
+
+// ─── Pamelding (Feature 2) ───────────────────────────────────────────────────
+
+model Pamelding {
+  id             String    @id @default(cuid())
+  arrangementId  String
+  brukerId       String
+  status         String    @default("VENTENDE") // VENTENDE | BEKREFTET | VENTELISTE | AVBESTILT | AVVIST
+  startnummer    Int?
+  klasse         String?
+  merknader      String?
+  opprettetAt    DateTime  @default(now())
+  oppdatertAt    DateTime  @updatedAt
+
+  arrangement    Arrangement @relation("ArrangementRelasjon", fields: [arrangementId], references: [id], onDelete: Cascade)
+  bruker         Bruker      @relation("DeltakerRelasjon", fields: [brukerId], references: [id])
+  betaling       Betaling?
+  sjekkInn       SjekkInn?
+
+  @@unique([arrangementId, brukerId])
+  @@map("pameldinjer")
+}
+
+// ─── Sjekk-inn (Feature 4) ───────────────────────────────────────────────────
+
+model SjekkInn {
+  id           String    @id @default(cuid())
+  pameldingId  String    @unique
+  tidspunkt    DateTime  @default(now())
+  sjekkInnAv   String?
+
+  pamelding    Pamelding @relation(fields: [pameldingId], references: [id], onDelete: Cascade)
+
+  @@map("sjekk_inn")
+}
+
+// ─── Betaling (Feature 3) ────────────────────────────────────────────────────
+
+model Betaling {
+  id                String    @id @default(cuid())
+  pameldingId       String    @unique
+  belop             Int       // øre
+  valuta            String    @default("NOK")
+  status            String    @default("VENTENDE") // VENTENDE | FULLFORT | FEILET | REFUNDERT
+  stripeSessionId   String?   @unique
+  stripeBetalingId  String?
+  opprettetAt       DateTime  @default(now())
+  oppdatertAt       DateTime  @updatedAt
+
+  pamelding         Pamelding @relation(fields: [pameldingId], references: [id], onDelete: Cascade)
+
+  @@map("betalinger")
+}
+
+// ─── Resultater (Feature 7) ──────────────────────────────────────────────────
+
+model Resultat {
+  id             String    @id @default(cuid())
+  arrangementId  String
+  deltakerNavn   String
+  startnummer    Int?
+  klasse         String?
+  plassering     Int?
+  tid            String?   // "HH:MM:SS.ms"
+  poeng          Float?
+  merknad        String?
+  publisert      Boolean   @default(false)
+  opprettetAt    DateTime  @default(now())
+  oppdatertAt    DateTime  @updatedAt
+
+  arrangement    Arrangement @relation(fields: [arrangementId], references: [id], onDelete: Cascade)
+
+  @@map("resultater")
+}
+
+// ─── Frivillige (Feature 8) ──────────────────────────────────────────────────
+
+model FrivilligPamelding {
+  id             String    @id @default(cuid())
+  arrangementId  String
+  brukerId       String
+  rolle          String?
+  status         String    @default("SOKT") // SOKT | GODKJENT | AVVIST
+  merknader      String?
+  opprettetAt    DateTime  @default(now())
+
+  arrangement    Arrangement @relation("ArrangementFrivilligRelasjon", fields: [arrangementId], references: [id], onDelete: Cascade)
+  bruker         Bruker      @relation("FrivilligRelasjon", fields: [brukerId], references: [id])
+
+  @@unique([arrangementId, brukerId])
+  @@map("frivillig_pameldinjer")
+}
+
+// ─── Kommunikasjon (Feature 6) ───────────────────────────────────────────────
+
+model Melding {
+  id             String    @id @default(cuid())
+  arrangementId  String?
+  avsenderId     String
+  emne           String
+  innhold        String
+  type           String    @default("DIREKTE") // DIREKTE | ALLE_DELTAKERE | ALLE_FRIVILLIGE | KUNNGJORING
+  sendtAt        DateTime  @default(now())
+
+  arrangement    Arrangement?      @relation(fields: [arrangementId], references: [id])
+  avsender       Bruker            @relation("AvsenderRelasjon", fields: [avsenderId], references: [id])
+  mottakere      MeldingMottaker[]
+
+  @@map("meldinger")
+}
+
+model MeldingMottaker {
+  id         String    @id @default(cuid())
+  meldingId  String
+  brukerId   String
+  lest       Boolean   @default(false)
+  lestAt     DateTime?
+
+  melding    Melding @relation(fields: [meldingId], references: [id], onDelete: Cascade)
+  bruker     Bruker  @relation("MottakerRelasjon", fields: [brukerId], references: [id])
+
+  @@unique([meldingId, brukerId])
+  @@map("melding_mottakere")
+}
