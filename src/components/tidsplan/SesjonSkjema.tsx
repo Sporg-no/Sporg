@@ -47,8 +47,8 @@ export function SesjonSkjema({ arrangementId }: SesjonSkjemaProps) {
   }
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-6 space-y-4">
-      <h3 className="font-semibold text-gray-900">Legg til sesjon i tidsplan</h3>
+    <div className="rounded-xl border border-sporg-border bg-sporg-surface-2 p-6 space-y-4">
+      <h3 className="font-semibold text-sporg-text">Legg til sesjon i tidsplan</h3>
       <form action={handleSubmit} className="space-y-4">
         <Input label="Tittel" name="tittel" required placeholder="F.eks. Startseremoni" />
         <Textarea label="Beskrivelse" name="beskrivelse" rows={2} placeholder="Valgfri beskrivelse" />

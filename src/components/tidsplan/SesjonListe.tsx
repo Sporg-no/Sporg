@@ -40,11 +40,11 @@ export function SesjonListe({ sesjoner, arrangementId, erOrganisator }: SesjonLi
       {sesjoner.map((sesjon) => {
         const typeInfo = typeEtikett[sesjon.type] ?? typeEtikett.ANNET
         return (
-          <div key={sesjon.id} className="flex items-start gap-4 rounded-xl border border-gray-200 bg-white p-4">
+          <div key={sesjon.id} className="flex items-start gap-4 rounded-xl border border-sporg-border bg-sporg-surface-2 p-4">
             <div className="flex-shrink-0 text-center min-w-[80px]">
-              <p className="text-xs text-gray-500">{formatDatoTid(sesjon.startTid)}</p>
-              <p className="text-xs text-gray-400">↓</p>
-              <p className="text-xs text-gray-500">{formatDatoTid(sesjon.sluttTid)}</p>
+              <p className="text-xs text-sporg-text-3">{formatDatoTid(sesjon.startTid)}</p>
+              <p className="text-xs text-sporg-text-3">↓</p>
+              <p className="text-xs text-sporg-text-3">{formatDatoTid(sesjon.sluttTid)}</p>
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
@@ -52,12 +52,12 @@ export function SesjonListe({ sesjoner, arrangementId, erOrganisator }: SesjonLi
                   {typeInfo.label}
                 </span>
                 {sesjon.sted && (
-                  <span className="text-xs text-gray-500">📍 {sesjon.sted}</span>
+                  <span className="text-xs text-sporg-text-3">📍 {sesjon.sted}</span>
                 )}
               </div>
-              <h4 className="font-medium text-gray-900">{sesjon.tittel}</h4>
+              <h4 className="font-medium text-sporg-text">{sesjon.tittel}</h4>
               {sesjon.beskrivelse && (
-                <p className="mt-0.5 text-sm text-gray-500">{sesjon.beskrivelse}</p>
+                <p className="mt-0.5 text-sm text-sporg-text-3">{sesjon.beskrivelse}</p>
               )}
             </div>
             {erOrganisator && (
@@ -66,7 +66,7 @@ export function SesjonListe({ sesjoner, arrangementId, erOrganisator }: SesjonLi
                 variant="ghost"
                 loading={isPending}
                 onClick={() => handleSlett(sesjon.id)}
-                className="text-red-600 hover:bg-red-50"
+                className="text-red-400 hover:bg-red-500/10"
               >
                 Slett
               </Button>
