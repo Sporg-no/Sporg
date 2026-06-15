@@ -50,7 +50,7 @@ export default async function ArrangementDetaljerSide({ params }: Props) {
               <Link href={`/arrangementer/${arr.id}/rediger`}>
                 <Button variant="outline" size="sm">Rediger</Button>
               </Link>
-              <form action={async () => { await publiserArrangement(arr.id) }}>
+              <form action={async () => { 'use server'; await publiserArrangement(arr.id) }}>
                 <Button
                   type="submit"
                   variant={arr.status === 'PUBLISERT' ? 'secondary' : 'primary'}
@@ -60,7 +60,7 @@ export default async function ArrangementDetaljerSide({ params }: Props) {
                 </Button>
               </form>
               {arr.status === 'UTKAST' && (
-                <form action={async () => { await slettArrangement(arr.id) }}>
+                <form action={async () => { 'use server'; await slettArrangement(arr.id) }}>
                   <Button type="submit" variant="danger" size="sm">Slett</Button>
                 </form>
               )}
