@@ -70,12 +70,12 @@ export default async function DashboardSide() {
           <Link
             key={stat.label}
             href={stat.href}
-            className="rounded-xl border border-gray-200 bg-white p-6 hover:shadow-md transition-shadow"
+            className="rounded-2xl border border-sporg-border bg-sporg-surface-2 p-6 shadow-card hover:shadow-card-hover transition-all duration-200 hover:border-sporg-accent/25 hover:-translate-y-0.5"
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500">{stat.label}</p>
-                <p className="mt-1 text-3xl font-bold text-gray-900">{stat.verdi}</p>
+                <p className="text-sm text-sporg-text-3">{stat.label}</p>
+                <p className="mt-1 text-3xl font-bold text-sporg-text">{stat.verdi}</p>
               </div>
               <span className="text-3xl">{stat.ikon}</span>
             </div>
@@ -87,15 +87,15 @@ export default async function DashboardSide() {
         {/* Mine arrangementer */}
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold text-gray-900">Mine arrangementer</h2>
-            <Link href="/arrangementer" className="text-sm text-indigo-600 hover:text-indigo-500">
+            <h2 className="font-semibold text-sporg-text">Mine arrangementer</h2>
+            <Link href="/arrangementer" className="text-sm text-sporg-accent hover:text-green-300">
               Se alle →
             </Link>
           </div>
 
           {mineArrangementer.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-gray-300 p-8 text-center">
-              <p className="text-sm text-gray-500 mb-3">Du har ingen arrangementer ennå</p>
+            <div className="rounded-xl border border-dashed border-sporg-border bg-sporg-surface-2 p-8 text-center">
+              <p className="text-sm text-sporg-text-3 mb-3">Du har ingen arrangementer ennå</p>
               <Link href="/arrangementer/ny">
                 <Button size="sm">Opprett ditt første arrangement</Button>
               </Link>
@@ -106,14 +106,14 @@ export default async function DashboardSide() {
                 <Link
                   key={arr.id}
                   href={`/arrangementer/${arr.id}`}
-                  className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-4 hover:shadow-sm transition-shadow"
+                  className="flex items-center justify-between rounded-xl border border-sporg-border bg-sporg-surface-2 p-4 shadow-card transition-all duration-200 hover:border-sporg-accent/25 hover:-translate-y-0.5 hover:shadow-card-hover"
                 >
                   <div>
-                    <p className="font-medium text-gray-900">{arr.tittel}</p>
-                    <p className="text-xs text-gray-500">{formatDato(arr.startDato)}</p>
+                    <p className="font-medium text-sporg-text">{arr.tittel}</p>
+                    <p className="text-xs text-sporg-text-3">{formatDato(arr.startDato)}</p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-xs text-gray-400">{arr._count.pameldingerFor} påmeldte</span>
+                    <span className="text-xs text-sporg-text-3">{arr._count.pameldingerFor} påmeldte</span>
                     <Badge variant={statusTilFarge(arr.status)}>
                       {statusEtikett(arr.status)}
                     </Badge>
@@ -127,12 +127,12 @@ export default async function DashboardSide() {
         {/* Mine påmeldinger */}
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold text-gray-900">Mine påmeldinger</h2>
+            <h2 className="font-semibold text-sporg-text">Mine påmeldinger</h2>
           </div>
 
           {minePameldinjer.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-gray-300 p-8 text-center">
-              <p className="text-sm text-gray-500">Du er ikke påmeldt noen arrangementer ennå</p>
+            <div className="rounded-xl border border-dashed border-sporg-border bg-sporg-surface-2 p-8 text-center">
+              <p className="text-sm text-sporg-text-3">Du er ikke påmeldt noen arrangementer ennå</p>
             </div>
           ) : (
             <div className="space-y-3">
@@ -140,11 +140,11 @@ export default async function DashboardSide() {
                 <Link
                   key={p.id}
                   href={`/p/${p.arrangement.id}`}
-                  className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-4 hover:shadow-sm transition-shadow"
+                  className="flex items-center justify-between rounded-xl border border-sporg-border bg-sporg-surface-2 p-4 shadow-card transition-all duration-200 hover:border-sporg-accent/25 hover:-translate-y-0.5 hover:shadow-card-hover"
                 >
                   <div>
-                    <p className="font-medium text-gray-900">{p.arrangement.tittel}</p>
-                    <p className="text-xs text-gray-500">
+                    <p className="font-medium text-sporg-text">{p.arrangement.tittel}</p>
+                    <p className="text-xs text-sporg-text-3">
                       {formatDato(p.arrangement.startDato)} · {p.arrangement.sted}
                     </p>
                   </div>

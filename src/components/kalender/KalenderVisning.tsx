@@ -48,21 +48,21 @@ export function KalenderVisning({ arrangementer }: KalenderVisningProps) {
     <div>
       <div className="flex items-center justify-between mb-4">
         <Button variant="outline" size="sm" onClick={forrigeMaaned}>← Forrige</Button>
-        <h2 className="text-lg font-semibold text-gray-900">
+        <h2 className="text-lg font-semibold text-sporg-text">
           {MANEDER[maaned]} {ar}
         </h2>
         <Button variant="outline" size="sm" onClick={nesteMaaned}>Neste →</Button>
       </div>
 
-      <div className="grid grid-cols-7 text-center text-xs font-medium text-gray-500 mb-2">
+      <div className="grid grid-cols-7 text-center text-xs font-medium text-sporg-text-3 mb-2">
         {DAGER.map((dag) => (
           <div key={dag} className="py-2">{dag}</div>
         ))}
       </div>
 
-      <div className="grid grid-cols-7 gap-px bg-gray-200 rounded-xl overflow-hidden">
+      <div className="grid grid-cols-7 gap-px bg-sporg-border rounded-xl overflow-hidden">
         {tomCeller.map((_, i) => (
-          <div key={`tom-${i}`} className="bg-gray-50 min-h-[80px]" />
+          <div key={`tom-${i}`} className="bg-sporg-surface min-h-[80px]" />
         ))}
         {dagerListe.map((dag) => {
           const erIDag =
@@ -74,16 +74,16 @@ export function KalenderVisning({ arrangementer }: KalenderVisningProps) {
           return (
             <div
               key={dag}
-              className={`bg-white min-h-[80px] p-1.5 ${erIDag ? 'ring-2 ring-indigo-400 ring-inset' : ''}`}
+              className={`bg-sporg-surface-2 min-h-[80px] p-1.5 ${erIDag ? 'bg-sporg-accent/10 ring-2 ring-sporg-accent ring-inset' : ''}`}
             >
-              <div className={`text-xs font-medium mb-1 ${erIDag ? 'text-indigo-600' : 'text-gray-700'}`}>
+              <div className={`text-xs font-medium mb-1 ${erIDag ? 'text-sporg-accent' : 'text-sporg-text-2'}`}>
                 {dag}
               </div>
               {arr.map((a) => (
                 <Link
                   key={a.id}
                   href={`/arrangementer/${a.id}`}
-                  className="block truncate rounded px-1 py-0.5 text-xs bg-indigo-100 text-indigo-700 hover:bg-indigo-200 mb-0.5"
+                  className="block truncate rounded px-1 py-0.5 text-xs bg-sporg-accent/15 text-sporg-accent hover:bg-sporg-accent/25 mb-0.5"
                   title={a.tittel}
                 >
                   {a.tittel}

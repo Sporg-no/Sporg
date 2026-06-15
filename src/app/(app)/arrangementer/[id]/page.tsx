@@ -75,9 +75,9 @@ export default async function ArrangementDetaljerSide({ params }: Props) {
             <CardBody>
               <div className="flex items-center gap-2 mb-3">
                 <Badge variant={statusTilFarge(arr.status)}>{statusEtikett(arr.status)}</Badge>
-                <span className="text-sm text-gray-500">{kategorietikett(arr.kategori)}</span>
+                <span className="text-sm text-sporg-text-3">{kategorietikett(arr.kategori)}</span>
               </div>
-              <p className="text-gray-700 whitespace-pre-wrap">{arr.beskrivelse}</p>
+              <p className="text-sporg-text-2 whitespace-pre-wrap">{arr.beskrivelse}</p>
             </CardBody>
           </Card>
 
@@ -88,11 +88,11 @@ export default async function ArrangementDetaljerSide({ params }: Props) {
                 <Link
                   key={fane.href}
                   href={fane.href}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:border-indigo-300"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-sporg-border bg-sporg-surface-2 px-4 py-2 text-sm font-medium text-sporg-text-2 hover:bg-sporg-surface-3 hover:border-sporg-accent/30"
                 >
                   {fane.label}
                   {fane.antall !== undefined && (
-                    <span className="rounded-full bg-indigo-100 px-1.5 py-0.5 text-xs text-indigo-700">
+                    <span className="rounded-full bg-sporg-accent/10 px-1.5 py-0.5 text-xs text-sporg-accent border border-sporg-accent/20">
                       {fane.antall}
                     </span>
                   )}
@@ -105,28 +105,28 @@ export default async function ArrangementDetaljerSide({ params }: Props) {
         <div className="space-y-4">
           <Card>
             <CardBody className="space-y-3">
-              <h3 className="font-semibold text-gray-900">Detaljer</h3>
+              <h3 className="font-semibold text-sporg-text">Detaljer</h3>
 
               <div>
-                <p className="text-xs text-gray-500 mb-0.5">Dato</p>
+                <p className="text-xs text-sporg-text-3 mb-0.5">Dato</p>
                 <p className="text-sm font-medium">{formatDatoTid(arr.startDato)}</p>
-                <p className="text-xs text-gray-400">til {formatDatoTid(arr.sluttDato)}</p>
+                <p className="text-xs text-sporg-text-3">til {formatDatoTid(arr.sluttDato)}</p>
               </div>
 
               <div>
-                <p className="text-xs text-gray-500 mb-0.5">Sted</p>
+                <p className="text-xs text-sporg-text-3 mb-0.5">Sted</p>
                 <p className="text-sm font-medium">{arr.sted}</p>
-                {arr.adresse && <p className="text-xs text-gray-400">{arr.adresse}</p>}
+                {arr.adresse && <p className="text-xs text-sporg-text-3">{arr.adresse}</p>}
               </div>
 
               <div>
-                <p className="text-xs text-gray-500 mb-0.5">Påmeldingsavgift</p>
+                <p className="text-xs text-sporg-text-3 mb-0.5">Påmeldingsavgift</p>
                 <p className="text-sm font-medium">{formatPris(arr.pris)}</p>
               </div>
 
               {arr.maksAntall && (
                 <div>
-                  <p className="text-xs text-gray-500 mb-0.5">Kapasitet</p>
+                  <p className="text-xs text-sporg-text-3 mb-0.5">Kapasitet</p>
                   <p className="text-sm font-medium">
                     {arr._count.pameldingerFor} / {arr.maksAntall} plasser
                   </p>
@@ -135,13 +135,13 @@ export default async function ArrangementDetaljerSide({ params }: Props) {
 
               {arr.pameldingsFrist && (
                 <div>
-                  <p className="text-xs text-gray-500 mb-0.5">Påmeldingsfrist</p>
+                  <p className="text-xs text-sporg-text-3 mb-0.5">Påmeldingsfrist</p>
                   <p className="text-sm font-medium">{formatDatoTid(arr.pameldingsFrist)}</p>
                 </div>
               )}
 
               <div>
-                <p className="text-xs text-gray-500 mb-0.5">Organisator</p>
+                <p className="text-xs text-sporg-text-3 mb-0.5">Organisator</p>
                 <p className="text-sm font-medium">{arr.organisator.navn}</p>
               </div>
 
@@ -149,7 +149,7 @@ export default async function ArrangementDetaljerSide({ params }: Props) {
                 <Link
                   href={`/p/${arr.slug}`}
                   target="_blank"
-                  className="block text-center rounded-lg border border-indigo-200 bg-indigo-50 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-100"
+                  className="block text-center rounded-lg border border-sporg-accent/20 bg-sporg-accent/10 py-2 text-sm font-medium text-sporg-accent hover:bg-sporg-accent/20"
                 >
                   Se offentlig side ↗
                 </Link>

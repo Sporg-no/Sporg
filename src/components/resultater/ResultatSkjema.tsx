@@ -39,8 +39,8 @@ export function ResultatSkjema({ arrangementId }: ResultatSkjemaProps) {
   }
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-6 space-y-4">
-      <h3 className="font-semibold text-gray-900">Legg til resultat</h3>
+    <div className="rounded-xl border border-sporg-border bg-sporg-surface-2 p-6 space-y-4">
+      <h3 className="font-semibold text-sporg-text">Legg til resultat</h3>
       <form action={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <Input label="Deltakernavn" name="deltakerNavn" required placeholder="Fornavn Etternavn" />

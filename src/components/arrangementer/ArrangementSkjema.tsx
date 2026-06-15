@@ -45,8 +45,8 @@ export function ArrangementSkjema({ arrangement }: ArrangementSkjemaProps) {
 
   return (
     <form action={handleSubmit} className="space-y-6">
-      <div className="rounded-xl border border-gray-200 bg-white p-6 space-y-4">
-        <h2 className="font-semibold text-gray-900">Grunnleggende informasjon</h2>
+      <div className="rounded-xl border border-sporg-border bg-sporg-surface-2 p-6 space-y-4">
+        <h2 className="font-semibold text-sporg-text">Grunnleggende informasjon</h2>
 
         <Input
           label="Tittel"
@@ -90,8 +90,8 @@ export function ArrangementSkjema({ arrangement }: ArrangementSkjemaProps) {
         />
       </div>
 
-      <div className="rounded-xl border border-gray-200 bg-white p-6 space-y-4">
-        <h2 className="font-semibold text-gray-900">Datoer</h2>
+      <div className="rounded-xl border border-sporg-border bg-sporg-surface-2 p-6 space-y-4">
+        <h2 className="font-semibold text-sporg-text">Datoer</h2>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Input
@@ -119,8 +119,8 @@ export function ArrangementSkjema({ arrangement }: ArrangementSkjemaProps) {
         />
       </div>
 
-      <div className="rounded-xl border border-gray-200 bg-white p-6 space-y-4">
-        <h2 className="font-semibold text-gray-900">Kapasitet og pris</h2>
+      <div className="rounded-xl border border-sporg-border bg-sporg-surface-2 p-6 space-y-4">
+        <h2 className="font-semibold text-sporg-text">Kapasitet og pris</h2>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Input

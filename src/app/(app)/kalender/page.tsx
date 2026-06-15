@@ -33,7 +33,7 @@ export default async function KalenderSide() {
         title="Kalender"
         description="Oversikt over alle arrangementer"
       />
-      <div className="rounded-xl border border-gray-200 bg-white p-6">
+      <div className="rounded-2xl border border-sporg-border bg-sporg-surface-2 p-6 shadow-card">
         <KalenderVisning arrangementer={arrangementer} />
       </div>
     </div>

@@ -12,7 +12,7 @@ export function ArrangementKort({ arrangement, visOrganisator }: ArrangementKort
   return (
     <Link
       href={`/arrangementer/${arrangement.id}`}
-      className="block rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
+      className="block rounded-xl border border-sporg-border bg-sporg-surface-2 p-5 shadow-card transition-all duration-200 hover:shadow-card-hover hover:border-sporg-accent/25"
     >
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1 min-w-0">
@@ -20,17 +20,17 @@ export function ArrangementKort({ arrangement, visOrganisator }: ArrangementKort
             <Badge variant={statusTilFarge(arrangement.status)}>
               {statusEtikett(arrangement.status)}
             </Badge>
-            <span className="text-xs text-gray-500">{kategorietikett(arrangement.kategori)}</span>
+            <span className="text-xs text-sporg-text-3">{kategorietikett(arrangement.kategori)}</span>
           </div>
-          <h3 className="font-semibold text-gray-900 truncate">{arrangement.tittel}</h3>
-          <p className="mt-1 text-sm text-gray-500 line-clamp-2">{arrangement.beskrivelse}</p>
+          <h3 className="font-semibold text-sporg-text truncate">{arrangement.tittel}</h3>
+          <p className="mt-1 text-sm text-sporg-text-3 line-clamp-2">{arrangement.beskrivelse}</p>
         </div>
         <div className="text-right flex-shrink-0">
-          <p className="text-sm font-medium text-indigo-600">{formatPris(arrangement.pris)}</p>
+          <p className="text-sm font-medium text-sporg-accent">{formatPris(arrangement.pris)}</p>
         </div>
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-gray-500">
+      <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-sporg-text-3">
         <span className="flex items-center gap-1">
           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />

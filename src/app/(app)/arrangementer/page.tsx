@@ -36,9 +36,9 @@ export default async function ArrangementerSide() {
       />
 
       {arrangementer.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-gray-300 p-16 text-center">
-          <h3 className="font-semibold text-gray-900 mb-2">Ingen arrangementer ennå</h3>
-          <p className="text-sm text-gray-500 mb-6">
+        <div className="rounded-xl border border-dashed border-sporg-border bg-sporg-surface-2 p-16 text-center">
+          <h3 className="font-semibold text-sporg-text mb-2">Ingen arrangementer ennå</h3>
+          <p className="text-sm text-sporg-text-3 mb-6">
             Kom i gang ved å opprette ditt første arrangement.
           </p>
           <Link href="/arrangementer/ny">

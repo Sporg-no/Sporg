@@ -88,10 +88,10 @@ export function PameldingSkjema({ arrangementId, pris, slug }: PameldingSkjemaPr
 
   if (steg === 'bekreftet') {
     return (
-      <div className="rounded-xl border border-green-200 bg-green-50 p-6 text-center">
+      <div className="rounded-xl border border-green-500/20 bg-green-500/10 p-6 text-center">
         <div className="text-3xl mb-3">✅</div>
-        <h3 className="text-lg font-semibold text-green-800">Påmelding bekreftet!</h3>
-        <p className="mt-2 text-sm text-green-700">
+        <h3 className="text-lg font-semibold text-green-400">Påmelding bekreftet!</h3>
+        <p className="mt-2 text-sm text-green-400">
           Du er nå påmeldt. Sjekk meldingene dine for mer informasjon.
         </p>
       </div>
@@ -100,9 +100,9 @@ export function PameldingSkjema({ arrangementId, pris, slug }: PameldingSkjemaPr
 
   if (steg === 'betaling') {
     return (
-      <div className="rounded-xl border border-gray-200 bg-white p-6 space-y-4">
-        <h3 className="font-semibold text-gray-900">Betaling</h3>
-        <p className="text-sm text-gray-600">
+      <div className="rounded-xl border border-sporg-border bg-sporg-surface-2 p-6 space-y-4">
+        <h3 className="font-semibold text-sporg-text">Betaling</h3>
+        <p className="text-sm text-sporg-text-2">
           Påmeldingsavgift: <strong>{(pris / 100).toFixed(0)} NOK</strong>
         </p>
 
@@ -127,8 +127,8 @@ export function PameldingSkjema({ arrangementId, pris, slug }: PameldingSkjemaPr
   }
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-6 space-y-4">
-      <h3 className="font-semibold text-gray-900">Påmeldingsdetaljer</h3>
+    <div className="rounded-xl border border-sporg-border bg-sporg-surface-2 p-6 space-y-4">
+      <h3 className="font-semibold text-sporg-text">Påmeldingsdetaljer</h3>
 
       {feil && <Alert type="error">{feil}</Alert>}
 

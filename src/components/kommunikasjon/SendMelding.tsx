@@ -29,8 +29,8 @@ export function SendMelding({ arrangementId }: SendMeldingProps) {
   }
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-6 space-y-4">
-      <h3 className="font-semibold text-gray-900">Send melding til deltakere</h3>
+    <div className="rounded-xl border border-sporg-border bg-sporg-surface-2 p-6 space-y-4">
+      <h3 className="font-semibold text-sporg-text">Send melding til deltakere</h3>
 
       {melding && <Alert type={melding.type}>{melding.tekst}</Alert>}
 

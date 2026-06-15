@@ -32,44 +32,44 @@ export function ResultatTabell({ resultater, arrangementId, erOrganisator }: Res
   })
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-gray-200">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
+    <div className="overflow-x-auto rounded-xl border border-sporg-border">
+      <table className="min-w-full divide-y divide-sporg-border">
+        <thead className="bg-sporg-surface">
           <tr>
-            <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">Pl.</th>
-            <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">#</th>
-            <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">Navn</th>
-            <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">Klasse</th>
-            <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">Tid</th>
-            <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">Poeng</th>
-            <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">Status</th>
+            <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-sporg-text-3">Pl.</th>
+            <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-sporg-text-3">#</th>
+            <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-sporg-text-3">Navn</th>
+            <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-sporg-text-3">Klasse</th>
+            <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-sporg-text-3">Tid</th>
+            <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-sporg-text-3">Poeng</th>
+            <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-sporg-text-3">Status</th>
             {erOrganisator && (
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">Handlinger</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-sporg-text-3">Handlinger</th>
             )}
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-100 bg-white">
+        <tbody className="divide-y divide-sporg-border bg-sporg-surface-2">
           {sortert.length === 0 && (
             <tr>
-              <td colSpan={8} className="px-4 py-8 text-center text-sm text-gray-500">
+              <td colSpan={8} className="px-4 py-8 text-center text-sm text-sporg-text-3">
                 Ingen resultater registrert ennå
               </td>
             </tr>
           )}
           {sortert.map((res) => (
-            <tr key={res.id} className="hover:bg-gray-50">
-              <td className="px-4 py-3 text-sm font-bold text-gray-900">
+            <tr key={res.id} className="hover:bg-sporg-surface-3">
+              <td className="px-4 py-3 text-sm font-bold text-sporg-text">
                 {res.plassering ? (
-                  <span className={res.plassering <= 3 ? 'text-indigo-600' : ''}>
+                  <span className={res.plassering <= 3 ? 'text-sporg-accent' : ''}>
                     {res.plassering}.
                   </span>
                 ) : '–'}
               </td>
-              <td className="px-4 py-3 text-sm font-mono text-gray-500">{res.startnummer ?? '–'}</td>
-              <td className="px-4 py-3 text-sm font-medium text-gray-900">{res.deltakerNavn}</td>
-              <td className="px-4 py-3 text-sm text-gray-600">{res.klasse ?? '–'}</td>
-              <td className="px-4 py-3 text-sm font-mono text-gray-900">{res.tid ?? '–'}</td>
-              <td className="px-4 py-3 text-sm text-gray-600">{res.poeng ?? '–'}</td>
+              <td className="px-4 py-3 text-sm font-mono text-sporg-text-3">{res.startnummer ?? '–'}</td>
+              <td className="px-4 py-3 text-sm font-medium text-sporg-text">{res.deltakerNavn}</td>
+              <td className="px-4 py-3 text-sm text-sporg-text-2">{res.klasse ?? '–'}</td>
+              <td className="px-4 py-3 text-sm font-mono text-sporg-text">{res.tid ?? '–'}</td>
+              <td className="px-4 py-3 text-sm text-sporg-text-2">{res.poeng ?? '–'}</td>
               <td className="px-4 py-3">
                 <Badge variant={res.publisert ? 'green' : 'gray'}>
                   {res.publisert ? 'Publisert' : 'Skjult'}

@@ -47,7 +47,7 @@ export default async function KommunikasjonSide({ params }: Props) {
           <SendMelding arrangementId={params.id} />
         </div>
         <div>
-          <h3 className="font-semibold text-gray-900 mb-4">Sendte meldinger</h3>
+          <h3 className="font-semibold text-sporg-text mb-4">Sendte meldinger</h3>
           <MeldingListe meldinger={meldinger} />
         </div>
       </div>

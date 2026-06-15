@@ -40,44 +40,44 @@ export function DeltakerTabell({ pameldinjer, arrangementId, erOrganisator }: De
           placeholder="Søk etter navn, e-post eller startnummer..."
           value={sok}
           onChange={(e) => setSok(e.target.value)}
-          className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+          className="flex-1 rounded-lg border border-sporg-border bg-sporg-surface-3 px-3 py-2 text-sm text-sporg-text focus:border-sporg-accent focus:outline-none focus:ring-2 focus:ring-sporg-accent/20"
         />
-        <span className="text-sm text-gray-500">{filtrert.length} deltaker(e)</span>
+        <span className="text-sm text-sporg-text-3">{filtrert.length} deltaker(e)</span>
       </div>
 
-      <div className="overflow-x-auto rounded-xl border border-gray-200">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+      <div className="overflow-x-auto rounded-xl border border-sporg-border">
+        <table className="min-w-full divide-y divide-sporg-border">
+          <thead className="bg-sporg-surface">
             <tr>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">#</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">Deltaker</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">Klasse</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">Status</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">Betaling</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">Innsjekk</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-sporg-text-3">#</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-sporg-text-3">Deltaker</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-sporg-text-3">Klasse</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-sporg-text-3">Status</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-sporg-text-3">Betaling</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-sporg-text-3">Innsjekk</th>
               {erOrganisator && (
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">Handling</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-sporg-text-3">Handling</th>
               )}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100 bg-white">
+          <tbody className="divide-y divide-sporg-border bg-sporg-surface-2">
             {filtrert.length === 0 && (
               <tr>
-                <td colSpan={7} className="px-4 py-8 text-center text-sm text-gray-500">
+                <td colSpan={7} className="px-4 py-8 text-center text-sm text-sporg-text-3">
                   Ingen deltakere funnet
                 </td>
               </tr>
             )}
             {filtrert.map((pamelding) => (
-              <tr key={pamelding.id} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm font-mono text-gray-500">
+              <tr key={pamelding.id} className="hover:bg-sporg-surface-3">
+                <td className="px-4 py-3 text-sm font-mono text-sporg-text-3">
                   {pamelding.startnummer ?? '–'}
                 </td>
                 <td className="px-4 py-3">
-                  <div className="font-medium text-sm text-gray-900">{pamelding.bruker.navn}</div>
-                  <div className="text-xs text-gray-500">{pamelding.bruker.epost}</div>
+                  <div className="font-medium text-sm text-sporg-text">{pamelding.bruker.navn}</div>
+                  <div className="text-xs text-sporg-text-3">{pamelding.bruker.epost}</div>
                 </td>
-                <td className="px-4 py-3 text-sm text-gray-600">{pamelding.klasse ?? '–'}</td>
+                <td className="px-4 py-3 text-sm text-sporg-text-2">{pamelding.klasse ?? '–'}</td>
                 <td className="px-4 py-3">
                   <Badge variant={statusTilFarge(pamelding.status)}>
                     {statusEtikett(pamelding.status)}
@@ -92,13 +92,13 @@ export function DeltakerTabell({ pameldinjer, arrangementId, erOrganisator }: De
                     <Badge variant="green">Gratis</Badge>
                   )}
                 </td>
-                <td className="px-4 py-3 text-sm text-gray-600">
+                <td className="px-4 py-3 text-sm text-sporg-text-2">
                   {pamelding.sjekkInn ? (
-                    <span className="text-green-600 text-xs">
+                    <span className="text-green-400 text-xs">
                       ✓ {formatDatoTid(pamelding.sjekkInn.tidspunkt)}
                     </span>
                   ) : (
-                    <span className="text-gray-400 text-xs">–</span>
+                    <span className="text-sporg-text-3 text-xs">–</span>
                   )}
                 </td>
                 {erOrganisator && (

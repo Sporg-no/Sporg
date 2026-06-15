@@ -7,10 +7,10 @@ import { formatDatoTid } from '@/lib/utils'
 import type { Sesjon } from '@/types'
 
 const typeEtikett: Record<string, { label: string; klasse: string }> = {
-  AKTIVITET: { label: 'Aktivitet', klasse: 'bg-blue-100 text-blue-700' },
-  SEREMONI: { label: 'Seremoni', klasse: 'bg-purple-100 text-purple-700' },
-  PAUSE: { label: 'Pause', klasse: 'bg-gray-100 text-gray-600' },
-  ANNET: { label: 'Annet', klasse: 'bg-yellow-100 text-yellow-700' },
+  AKTIVITET: { label: 'Aktivitet', klasse: 'bg-blue-500/10 text-blue-400' },
+  SEREMONI: { label: 'Seremoni', klasse: 'bg-purple-500/10 text-purple-400' },
+  PAUSE: { label: 'Pause', klasse: 'bg-sporg-surface-3 text-sporg-text-2' },
+  ANNET: { label: 'Annet', klasse: 'bg-amber-500/10 text-amber-400' },
 }
 
 interface SesjonListeProps {
@@ -29,8 +29,8 @@ export function SesjonListe({ sesjoner, arrangementId, erOrganisator }: SesjonLi
 
   if (sesjoner.length === 0) {
     return (
-      <div className="rounded-xl border border-gray-200 bg-white p-8 text-center">
-        <p className="text-sm text-gray-500">Ingen sesjoner i tidsplanen ennå</p>
+      <div className="rounded-xl border border-sporg-border bg-sporg-surface-2 p-8 text-center">
+        <p className="text-sm text-sporg-text-3">Ingen sesjoner i tidsplanen ennå</p>
       </div>
     )
   }
