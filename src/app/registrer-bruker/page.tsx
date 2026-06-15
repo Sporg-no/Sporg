@@ -37,8 +37,8 @@ export default function RegistrerBrukerSide() {
     })
 
     if (!res.ok) {
-      const data = await res.json()
-      setFeil(data.feil ?? 'Noe gikk galt')
+      const data = await res.json().catch(() => null)
+      setFeil(data?.feil ?? 'Noe gikk galt. Prøv igjen senere.')
       setIsPending(false)
       return
     }
