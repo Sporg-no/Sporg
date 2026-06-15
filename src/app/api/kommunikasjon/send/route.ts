@@ -3,6 +3,8 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { MeldingSkjemaSchema } from '@/lib/validering'
+import { sendEpostTilFlere } from '@/lib/epost'
+import { nyMelding } from '@/lib/epost-maler'
 
 export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions)
@@ -64,6 +66,23 @@ export async function POST(req: NextRequest) {
         mottakere: { select: { brukerId: true } },
       },
     })
+
+    // Send meldingen som e-post til hver mottaker.
+    if (mottakerIds.length > 0) {
+      const mottakere = await prisma.bruker.findMany({
+        where: { id: { in: mottakerIds } },
+        select: { epost: true },
+      })
+      const mal = nyMelding({
+        emne,
+        innhold,
+        avsenderNavn: session.user.name ?? 'Arrangør',
+        arrangementTittel: arrangement.tittel,
+      })
+      await sendEpostTilFlere(
+        mottakere.map((m) => ({ til: m.epost, ...mal }))
+      )
+    }
 
     return NextResponse.json(melding, { status: 201 })
   } catch {

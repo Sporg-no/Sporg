@@ -4,6 +4,8 @@ import { revalidatePath } from 'next/cache'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { sendEpost } from '@/lib/epost'
+import { frivilligStatus } from '@/lib/epost-maler'
 import type { ServerActionResult } from '@/types'
 
 export async function oppdaterFrivilligStatus(
@@ -17,7 +19,10 @@ export async function oppdaterFrivilligStatus(
 
   const frivillig = await prisma.frivilligPamelding.findUnique({
     where: { id: frivilligId },
-    include: { arrangement: { select: { organisatorId: true } } },
+    include: {
+      arrangement: { select: { organisatorId: true, tittel: true } },
+      bruker: { select: { navn: true, epost: true } },
+    },
   })
 
   if (!frivillig) return { success: false, feil: 'Ikke funnet' }
@@ -31,6 +36,16 @@ export async function oppdaterFrivilligStatus(
     where: { id: frivilligId },
     data: { status, rolle: rolle ?? undefined },
   })
+
+  // Varsle den frivillige når søknaden blir godkjent eller avvist.
+  if ((status === 'GODKJENT' || status === 'AVVIST') && frivillig.bruker.epost) {
+    const mal = frivilligStatus({
+      navn: frivillig.bruker.navn,
+      arrangementTittel: frivillig.arrangement.tittel,
+      godkjent: status === 'GODKJENT',
+    })
+    await sendEpost({ til: frivillig.bruker.epost, ...mal })
+  }
 
   revalidatePath(`/arrangementer/${arrangementId}/frivillige`)
   return { success: true, melding: `Status oppdatert til ${status}` }

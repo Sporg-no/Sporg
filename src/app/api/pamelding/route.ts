@@ -3,6 +3,8 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { PameldingSkjemaSchema } from '@/lib/validering'
+import { sendEpost } from '@/lib/epost'
+import { paameldingBekreftet } from '@/lib/epost-maler'
 
 export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions)
@@ -63,6 +65,19 @@ export async function POST(req: NextRequest) {
           status: 'VENTENDE',
         },
       })
+    }
+
+    // Gratis arrangementer bekreftes umiddelbart – send bekreftelse på e-post.
+    // (Betalte arrangementer får bekreftelse etter fullført betaling.)
+    if (status === 'BEKREFTET' && session.user.email) {
+      const epost = paameldingBekreftet({
+        deltakerNavn: session.user.name ?? 'deltaker',
+        arrangementTittel: arrangement.tittel,
+        arrangementSlug: arrangement.slug,
+        startDato: arrangement.startDato,
+        sted: arrangement.sted,
+      })
+      await sendEpost({ til: session.user.email, ...epost })
     }
 
     return NextResponse.json(pamelding, { status: 201 })

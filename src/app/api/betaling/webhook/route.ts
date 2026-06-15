@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
 import { prisma } from '@/lib/prisma'
+import { sendBetalingsbekreftelse } from '@/lib/betaling-epost'
 
 export async function POST(req: NextRequest) {
   if (!stripe) return NextResponse.json({ mottatt: true })
@@ -37,6 +38,8 @@ export async function POST(req: NextRequest) {
           data: { status: 'BEKREFTET' },
         }),
       ])
+
+      await sendBetalingsbekreftelse(pameldingId)
     }
   }
 

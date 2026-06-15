@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { sendBetalingsbekreftelse } from '@/lib/betaling-epost'
 
 // Mock betaling – brukes i utviklingsmodus uten ekte Stripe
 export async function POST(req: NextRequest) {
@@ -34,6 +35,8 @@ export async function POST(req: NextRequest) {
       data: { status: 'BEKREFTET' },
     }),
   ])
+
+  await sendBetalingsbekreftelse(pameldingId)
 
   return NextResponse.json({ melding: 'Betaling bekreftet' })
 }

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { sendEpost } from '@/lib/epost'
+import { frivilligStatus } from '@/lib/epost-maler'
 
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions)
@@ -9,7 +11,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
   const frivillig = await prisma.frivilligPamelding.findUnique({
     where: { id: params.id },
-    include: { arrangement: { select: { organisatorId: true } } },
+    include: { arrangement: { select: { organisatorId: true, tittel: true } } },
   })
 
   if (!frivillig) return NextResponse.json({ feil: 'Ikke funnet' }, { status: 404 })
@@ -30,6 +32,16 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       bruker: { select: { id: true, navn: true, epost: true } },
     },
   })
+
+  // Varsle den frivillige når søknaden blir godkjent eller avvist.
+  if ((body.status === 'GODKJENT' || body.status === 'AVVIST') && oppdatert.bruker.epost) {
+    const mal = frivilligStatus({
+      navn: oppdatert.bruker.navn,
+      arrangementTittel: frivillig.arrangement.tittel,
+      godkjent: body.status === 'GODKJENT',
+    })
+    await sendEpost({ til: oppdatert.bruker.epost, ...mal })
+  }
 
   return NextResponse.json(oppdatert)
 }
