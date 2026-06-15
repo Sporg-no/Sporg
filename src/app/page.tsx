@@ -35,6 +35,12 @@ export default async function Hjemmeside() {
           </Link>
 
           <div className="flex items-center gap-2">
+            <Link
+              href="/utforsk"
+              className="px-4 py-2 text-sm font-medium text-sporg-text-2 hover:text-sporg-text transition-colors"
+            >
+              Utforsk
+            </Link>
             {session ? (
               <Link
                 href="/dashboard"
@@ -223,6 +229,14 @@ export default async function Hjemmeside() {
               {totalt === 0 ? 'Ingen ennå' : `${totalt} publiserte`}
             </p>
           </div>
+          {totalt > 6 && (
+            <Link
+              href="/utforsk"
+              className="text-sm font-medium text-sporg-accent hover:text-green-300 transition-colors"
+            >
+              Se alle {totalt} →
+            </Link>
+          )}
         </div>
 
         {arrangementer.length === 0 ? (

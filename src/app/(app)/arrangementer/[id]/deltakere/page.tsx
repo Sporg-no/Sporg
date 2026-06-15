@@ -4,6 +4,7 @@ import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { DeltakerTabell } from '@/components/deltakere/DeltakerTabell'
+import { LeggTilDeltakerSkjema } from '@/components/deltakere/LeggTilDeltakerSkjema'
 import type { PameldingMedDetaljer } from '@/types'
 
 interface Props {
@@ -34,10 +35,11 @@ export default async function DeltakereSide({ params }: Props) {
   const antallSjekkInn = pameldinjer.filter((p) => p.sjekkInn).length
 
   return (
-    <div>
+    <div className="space-y-6">
       <PageHeader
         title="Deltakere"
         description={`${arr.tittel} · ${pameldinjer.length} påmeldte · ${antallBekreftet} bekreftet · ${antallSjekkInn} sjekket inn`}
+        actions={erOrganisator ? <LeggTilDeltakerSkjema arrangementId={params.id} /> : undefined}
       />
       <DeltakerTabell
         pameldinjer={pameldinjer}

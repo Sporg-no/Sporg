@@ -43,6 +43,47 @@ export async function sjekkInnDeltaker(
   return { success: true, melding: 'Deltaker sjekket inn' }
 }
 
+export async function leggTilDeltaker(
+  arrangementId: string,
+  epost: string,
+  klasse?: string
+): Promise<ServerActionResult> {
+  const session = await getServerSession(authOptions)
+  if (!session) return { success: false, feil: 'Ikke autentisert' }
+
+  const arr = await prisma.arrangement.findUnique({ where: { id: arrangementId } })
+  if (!arr) return { success: false, feil: 'Arrangement ikke funnet' }
+
+  const erEier = arr.organisatorId === session.user.id
+  if (!erEier && session.user.rolle !== 'ADMIN') {
+    return { success: false, feil: 'Ikke tilgang' }
+  }
+
+  const bruker = await prisma.bruker.findUnique({ where: { epost: epost.toLowerCase().trim() } })
+  if (!bruker) {
+    return { success: false, feil: 'Ingen bruker med denne e-postadressen er registrert på Sporg' }
+  }
+
+  const eksisterende = await prisma.pamelding.findUnique({
+    where: { arrangementId_brukerId: { arrangementId, brukerId: bruker.id } },
+  })
+  if (eksisterende) {
+    return { success: false, feil: `${bruker.navn} er allerede påmeldt dette arrangementet` }
+  }
+
+  await prisma.pamelding.create({
+    data: {
+      arrangementId,
+      brukerId: bruker.id,
+      status: 'BEKREFTET',
+      klasse: klasse?.trim() || null,
+    },
+  })
+
+  revalidatePath(`/arrangementer/${arrangementId}/deltakere`)
+  return { success: true, melding: `${bruker.navn} er lagt til som deltaker` }
+}
+
 export async function oppdaterStartnummer(
   pameldingId: string,
   arrangementId: string,
