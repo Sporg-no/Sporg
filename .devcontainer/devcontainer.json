@@ -1,7 +1,7 @@
 {
   "name": "Sporg",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
-  "postCreateCommand": "npm install && npx prisma migrate dev --name init && npx tsx prisma/seed.ts",
+  "postCreateCommand": "npm install && npx prisma migrate deploy && npx tsx prisma/seed.ts",
   "forwardPorts": [3000],
   "portsAttributes": {
     "3000": {

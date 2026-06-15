@@ -1,0 +1,9 @@
+tasks:
+  - name: Sporg
+    init: npm install && npx prisma migrate deploy && npx tsx prisma/seed.ts
+    command: npm run dev
+
+ports:
+  - port: 3000
+    onOpen: open-preview
+    visibility: public
