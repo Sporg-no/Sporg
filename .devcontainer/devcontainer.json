@@ -1,0 +1,21 @@
+{
+  "name": "Sporg",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+  "postCreateCommand": "npm install && npx prisma migrate dev --name init && npx tsx prisma/seed.ts",
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "Sporg App",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Prisma.prisma",
+        "bradlc.vscode-tailwindcss",
+        "dbaeumer.vscode-eslint"
+      ]
+    }
+  }
+}
