@@ -37,3 +37,6 @@ next-env.d.ts
 # database
 *.db
 *.db-journal
+
+# swipefile — daily research output (not source code)
+/swipefile/
