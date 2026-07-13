@@ -1,15 +1,8 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 
-// Expecta landingsside – bygget etter docs/expecta/landingsside-blueprint.md
+// Expecta landingsside – bygget etter docs/landingsside-blueprint.md
 // NB: Alle brukertall, sitater og betaresultater på siden er PLASSHOLDERE
 // og skal erstattes med reelle data før siden publiseres offentlig.
-
-export const metadata: Metadata = {
-  title: 'Expecta – Er det trygt? Skann produktet og få svar | For gravide og ammende',
-  description:
-    'Expecta leser strekkoden eller ingredienslisten med kameraet og gir deg en tydelig vurdering for graviditet og amming – bygget på medisinske kilder og norske retningslinjer.',
-}
 
 const painPoints = [
   {
@@ -259,7 +252,7 @@ export default function ExpectaLandingPage() {
       {/* Toppmeny */}
       <header className="sticky top-0 z-50 border-b border-[#4A2545]/10 bg-[#FAF7F4]/90 backdrop-blur">
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
-          <Link href="/expecta" className="font-serif text-xl font-bold text-[#4A2545]">
+          <Link href="/" className="font-serif text-xl font-bold text-[#4A2545]">
             expecta<span className="text-[#C98A00]">.</span>
           </Link>
           <div className="hidden gap-6 text-sm font-medium text-[#4A2545]/80 sm:flex">
